@@ -1,0 +1,25 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to #{title} Js
+  p Table with the given number of rows and columns where each cell adds the row and column and mods by the number of rows.
+  p With Rows = #{query.rows} and Columns = #{query.cols} we except
+    -
+        rows= Number(query.rows)
+        cols= Number(query.cols)
+    if !Number.isInteger(rows)
+        p below mentioned rows are not accurate 
+    else if !Number.isInteger(cols)
+        p below mentioned columns are not appropriate
+    else
+       table           
+            - for(let i=0; i<rows; i++) {
+               tr
+                 - for(let j=i; j<cols-1; j++) {
+                    td=j
+                 -}        
+                 -   for(let k=0; k<=i; k++){
+                      td=k
+                 -}      
+            - }

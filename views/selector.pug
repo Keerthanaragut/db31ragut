@@ -1,0 +1,13 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to #{title} Js
+  p Displaying three different images when you load the page
+  br
+  br
+  - var imagenames= ["blacktea.jpg","greentea.jpg","Lemontea.jpg","Mint.jpg","redtea.jpg"]            
+    -for(let i=0;i<3;i++){
+        - let randnum=Math.floor(Math.random()*5)
+            img(src= `/images/${imagenames[randnum]}` alt="image", height="300", width="300")
+        -}

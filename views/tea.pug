@@ -1,0 +1,40 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to the Tea pug
+   div(class="container-fluid")
+        div(class="row")
+            -
+                let Tea = [
+                    {
+                        "Flavor": "Green Tea",
+                        "color": "Green",
+                        "price": 5
+                    },
+                    {
+                        "Flavor": "Black Tea",
+                        "color": "Black",
+                        "price": 4.5
+                    },
+                    {
+                        "Flavor": "Masala Tea",
+                        "color": "Red",
+                        "price": 6
+                    },                   
+                ]
+            each x,index in Tea
+                table(style='width:100%', border='1')
+                  tr 
+                    div(class="col-sm-2" onclick=`buy(${index})`) #{x.Flavor}
+                    br
+                    br
+                    div(class="col-sm-2" onclick=`buy(${index})`) #{x.color}
+                    br
+                    br
+                    div(class="col-sm-2" onclick=`buy(${index})`) #{x.price}
+  script.                
+        function buy(drink)
+        {
+              alert(`you purchased tea ${drink + 1}`)
+        }
