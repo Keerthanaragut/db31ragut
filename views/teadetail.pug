@@ -1,0 +1,39 @@
+extends layout 
+ 
+block content 
+  h1= title 
+ 
+  - let teaid = toShow._id 
+  - let tea_type = toShow.Flavor 
+  - let teacolor = toShow.color 
+  - let teaprice = toShow.price 
+  div 
+    div.row 
+      div(class='teaAttr mr-3') tea ID is: 
+      div #{teaid} 
+    div.row 
+      div(class='teaAttr mr-3') tea Type is: 
+      div #{tea_type} 
+    div.row 
+      div(class='teaAttr mr-3') tea color is: 
+      div #{teacolor} 
+    div.row 
+      div(class='teaAttr mr-3') tea Cost is: 
+      div #{teaprice} 
+
+    button(class="btn btn-danger m-2" onclick="gobackOnid()") goback 
+    button(class="btn btn-secondary m-2" onclick="cancel()") Cancel
+
+  script. 
+    function cancel() { 
+      // Go back to the home page for the tea variates 
+      window.location.href='/tea'
+    }
+
+  script. 
+   function gobackOnid() { 
+     window.location.href='/tea'
+   }
+
+
+ 

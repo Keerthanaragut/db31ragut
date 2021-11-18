@@ -1,0 +1,53 @@
+extends layout 
+ 
+block content 
+  h1= title 
+ 
+  if (toShow == null) 
+    h2 No instance to delete 
+  else 
+    - let teaid = toShow._id 
+    - let tea_type = toShow.Flavor 
+    - let teacolor = toShow.color 
+    - let teaprice = toShow.price 
+    - let actionid = "/resource/resource/teas/" + teaid 
+    script let actionid = "#{actionid}" 
+    div 
+      div.row 
+        div(class='teaAttr mr-3') tea ID is: 
+        div #{teaid} 
+      div.row 
+        div(class='teaAttr mr-3') tea Type is: 
+        div #{tea_type} 
+      div.row 
+        div(class='teaAttr mr-3') tea color is: 
+        div #{teacolor} 
+      div.row 
+        div(class='teaAttr mr-3') tea Cost is: 
+        div #{teaprice} 
+ 
+    button(class="btn btn-danger m-2" onclick="deleteOnid()") Delete 
+    button(class="btn btn-secondary m-2" onclick="cancel()") Cancel 
+ 
+  script. 
+    function cancel() { 
+      // Go back to the home page for the tea collection 
+      window.location.href='/teas' 
+    } 
+  script. 
+    function deleteOnid() { 
+      console.log("starting delete") 
+      // delete first 
+      fetch(actionid, { 
+        method: 'DELETE'       
+      }).then((resp) => { 
+        return resp.text(); // or resp.text() or whatever the server sends 
+      }).then((body) => { 
+        alert("Delete succeded") 
+        window.location.href='/teas' 
+        // TODO handle body 
+      }).catch((error) => { 
+        // TODO handle error 
+        alert("Delete failed " + error ) 
+      }); 
+    } 

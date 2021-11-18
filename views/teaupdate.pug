@@ -1,0 +1,53 @@
+extends layout 
+ 
+block content 
+  h1= title 
+ 
+  - let teaid    = toShow._id 
+  - let tea_type = toShow.Flavor 
+  - let teacolor = toShow.color 
+  - let teaprice = toShow.price 
+   
+  div.row(class='mb-2') 
+    div.mr-1 ID is 
+    div #{teaid} 
+  - let actionid = "/resource/resource/teas/" + teaid 
+  form(id='teaForm', action= actionid, method="PUT") 
+    div.form-group 
+        label.teaAttr(for='Flavor') tea type 
+        input#tea_type(type='text', name='Flavor', value= tea_type ) 
+    div.form-group 
+        label.teaAttr(for='color') tea size 
+        input#size(type='text', name='color', value= teacolor ) 
+    div.form-group 
+        label.teaAttr(for='price') tea cost 
+        input#cost(type='number', name='price', value= teaprice ) 
+    
+    button(class="btn btn-danger m-2" onclick="updateOnid()") update 
+    button(class="btn btn-secondary m-2" onclick="cancel()") Cancel
+
+  script. 
+    function cancel() { 
+      // Go back to the home page for the tea variaties 
+      window.location.href='/teas'
+    }
+ 
+  script. 
+   function updateOnid() { 
+    document.forms['teaForm'].addEventListener('submit', (event) => { 
+      event.preventDefault(); 
+      // TODO do something here to show user that form is being submitted 
+      fetch(event.target.action, { 
+        method: 'PUT', 
+        body: new URLSearchParams(new FormData(event.target)) // event.target is the form 
+      }).then((resp) => { 
+        return resp.text(); // or resp.text() or whatever the server sends 
+      }).then((body) => { 
+        alert("Update succeded") 
+        // TODO handle body 
+      }).catch((error) => { 
+        // TODO handle error 
+        alert("Update failed " + error ) 
+      }); 
+    }); 
+   }
