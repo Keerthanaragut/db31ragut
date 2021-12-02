@@ -2,9 +2,12 @@ extends layout
 
 block content
   h1= title
+   - let createView = `dispatch(\"tea/create\")`
+  button.btn(class="btn-primary m1-2", onclick=createView) Create
+  - let results = thetea
   p Welcome to the Tea pug
    div(class="container-fluid")
-        div(class="row")
+        div(class="row m-1")
             -
                 let Tea = [
                     {
@@ -24,6 +27,7 @@ block content
                     },                   
                 ]
             each x,index in Tea
+              - let destination = `dispatch(\"/tea/update?id=${x._id}\")` 
                 table(style='width:100%', border='1')
                   tr 
                     div(class="col-sm-2" onclick=`buy(${index})`) #{x.Flavor}
@@ -33,8 +37,12 @@ block content
                     br
                     br
                     div(class="col-sm-2" onclick=`buy(${index})`) #{x.price}
-  script.                
-        function buy(drink)
-        {
-              alert(`you purchased tea ${drink + 1}`)
-        }
+
+              button(class="btn-primary ml-2", onclick= destination) Update 
+              button(class="btn-primary ml-2", onclick= detailView) Detail
+              button(class="btn-danger ml-2", onclick= deleteView) Delete
+   
+  script. 
+    function dispatch(path){ 
+      window.location.href=path 
+    } 
